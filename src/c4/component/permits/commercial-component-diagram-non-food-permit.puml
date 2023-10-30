@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for granting and validating a nonfood vehicle permits on a license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store licenses with request type nonfood vehicle permit.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "NonFoodPermitController", "Spring Rest Controller", "Expose Apis to manage the license related to nonfood vehicle  permit type.")
+    Component(nonFoodPermitService, "NonFoodPermitService", "Spring Service Bean", "Manage the logic of permits related to license commercial request related to nonfood vehicle  permit type.")
+    Component(attachmentService, "AttachmentService","Spring Service Bean", "Service for managing attachment related to nonfood vehicle permits like upload/download.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "Generic service to handle file upload/download.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(nonFoodPermitService, db, "Uses", "TCP/IP")
+Rel(controller, nonFoodPermitService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+
+
+@enduml

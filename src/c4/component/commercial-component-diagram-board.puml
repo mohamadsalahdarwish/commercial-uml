@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing owner contract for board purchased by etmam- API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+    Container_Ext(boardContract, "BoardContractService", "Java Spring", "A Service that Get Board Contract Owned By Beneficiary",$sprite="java")
+    Container_Ext(boardContractConfig, "BoardContractConfigurationService", "Java Spring", "A Service that  Get Zone Setting For Board and Requirements Related To Specific Isic Activity",$sprite="java")
+ContainerDb(db, " Database", "Relational Database Schema",  "Get boards related to requests(under process-processed).")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "BoardContractController", "Spring Rest Controller", "Get All owner contracts for a board")
+    Component(boardContractServiceWithEtmam, "BoardContractServiceWithEtmam","Spring Service Bean", "A Service that Get Board Contract Owned By Beneficiary .")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, boardContractServiceWithEtmam, "Uses", "JSON/HTTP")
+
+Rel(boardContractServiceWithEtmam, boardContract, "Uses", "JSON/HTTP")
+
+Rel(boardContract, boardContractConfig, "Uses", "JSON/HTTP")
+
+Rel(boardContractServiceWithEtmam, db, "Uses", "TCP/IP")
+
+@enduml

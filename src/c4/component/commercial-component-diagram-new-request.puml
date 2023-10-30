@@ -1,0 +1,53 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing new commercial license request - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/store license and its details.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "NewRequestController", "Spring Rest Controller", "Expose apis to manage the creation of new commercial license")
+    Component(vehicleNewRequestService, "VehicleNewRequestService","Spring Service Bean", "A Service that submit a new request for vehicle commercial license and update the vehicle details like contact info , upload self attachment.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "A Service that calculate commercial fees for vehicle router.")
+    Component(officeNewRequestService, "OfficeNewRequestService","Spring Service Bean", "A Service that manage the managing setting appoint for the engineering office and save the inspection result , process the commercial request related to the engineering office flow.")
+    Component(newRequestServiceWithEtmam, "NewRequestServiceWithEtmam","Spring Service Bean", "A Service that get submmit and apply a commercial request with etmam and save location and save shop infor.")
+
+    Component(requestServiceWithEtmam, "RequestServiceWithEtmam","Spring Service Bean", "Save Salama details and save beneficiary notes.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "A Service that load attachment.")
+    Component(newRequestService, "ComNewRequestService","Spring Service Bean",  "Submit new commercial license request.")
+}
+Container_Ext(boardContract, "Board Contract Service", "Java Spring", "A Service that Get Board Contract Owned By Beneficiary",$sprite="java")
+Container_Ext(boardContractConfig, "Board Contract Configuration Service", "Java Spring", "A Service that  Get Zone Setting For Board and Requirements Related To Specific Isic Activity",$sprite="java")
+Container_Ext(commercialIssuingConsultation, "CommercialIssuingConsultationService", "C#, ASP", "The CLA calls Commercial Issuing Consultation service via http to simulate the same procedure to produce a license without any fees to have an understanding about limitation.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, vehicleNewRequestService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(controller, officeNewRequestService, "Uses", "JSON/HTTP")
+Rel(controller, newRequestServiceWithEtmam, "Uses", "JSON/HTTP")
+Rel(controller, requestServiceWithEtmam, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+Rel(controller, newRequestService, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+
+Rel(vehicleNewRequestService, db, "Uses", "TCP/IP")
+Rel(officeNewRequestService, db, "Uses", "TCP/IP")
+Rel(newRequestServiceWithEtmam, db, "Uses", "TCP/IP")
+Rel(newRequestService, db, "Uses", "TCP/IP")
+Rel(requestServiceWithEtmam, db, "Uses", "TCP/IP")
+
+Rel(newRequestService, boardContract, "Uses", "JSON/HTTP")
+
+Rel(boardContract, boardContractConfig, "Uses", "JSON/HTTP")
+Rel(newRequestServiceWithEtmam, commercialIssuingConsultation, "Uses", "JSON/HTTP")
+
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing the business rules for extracting a commercial license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "CorrectRequestController", "Spring Rest Controller", "Expose apis to handle the business rules related to extracting a commercial license")
+    Component(civilDefenseRulesService, "CivilDefenseRulesService","Spring Service Bean",  "Handle the logic related of getting civil defense allowed document.")
+    Component(fastFlowRuleService, "FastFlowRuleService","Spring Service Bean",  "Handle the logic of retrieving the fast flow condition ")
+    Component(ownershipRulesService, "OwnershipRulesService","Spring Service Bean",  "Handle the logic related to shop ownership contract option.")
+    Component(supervisorAgenciesRuleService, "SupervisorAgenciesRuleService","Spring Service Bean",  "Handle the logic related to get the supervising authorities.")
+    Component(licensePeriodRuleService, "LicensePeriodRuleService","Spring Service Bean",  "Handle the logic related to getting the license period")
+    Component(licensePermitRuleService, "LicensePermitRuleService","Spring Service Bean",  "Handle the logic for getting allowed license permit types.")
+    Component(cleaningRulesService, "CleaningRulesService","Spring Service Bean",  "Handle the logic related to getting cleaning contract options.")
+    Component(zoneProhivitionRuleService, "ZoneProhivitionRuleService","Spring Service Bean",  "Handle the logic related to check for prohibitive zones")
+    Component(activityMinimumAreaRuleService, "ActivityMinimumAreaRuleService","Spring Service Bean",  "Handle the logic related for getting activity minimum area")
+    Component(workFlowService, "RequestWorkFlowService","Spring Service Bean",  "Handle the logic related to getting request expected workflow.")
+    Component(calculatorRulesService, "CalculatorRulesService","Spring Service Bean",  "Handle the logic related togetting interactive calculator rules.")
+    Component(activityInfoRule, "ActivityInfoRule","Spring Service Bean",  "Handle the logic related to getting activity info.")
+    Component(licenseYearsRuleService, "LicenseYearsRuleService","Spring Service Bean",  "Handle the logic related to getting license number of years.")
+
+}
+Container_Ext(gisService, "GIS Service", "C# , ASP", "A Service that  Get Gis Location details By Coordinates and Information About Zones",$sprite="java")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, civilDefenseRulesService, "Uses", "JSON/HTTP")
+Rel(controller, fastFlowRuleService, "Uses", "JSON/HTTP")
+Rel(controller, ownershipRulesService, "Uses", "JSON/HTTP")
+Rel(controller, supervisorAgenciesRuleService, "Uses", "JSON/HTTP")
+Rel(controller, licensePeriodRuleService, "Uses", "JSON/HTTP")
+Rel(controller, licensePermitRuleService, "Uses", "JSON/HTTP")
+Rel(controller, cleaningRulesService, "Uses", "JSON/HTTP")
+Rel(controller, zoneProhivitionRuleService, "Uses", "JSON/HTTP")
+Rel(controller, activityMinimumAreaRuleService, "Uses", "JSON/HTTP")
+Rel(controller, workFlowService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRulesService, "Uses", "JSON/HTTP")
+Rel(controller, activityInfoRule, "Uses", "JSON/HTTP")
+Rel(controller, licenseYearsRuleService, "Uses", "JSON/HTTP")
+
+Rel(zoneProhivitionRuleService, gisService, "Uses", "JSON/HTTP")
+
+
+@enduml

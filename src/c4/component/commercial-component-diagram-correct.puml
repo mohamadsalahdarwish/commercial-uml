@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for correcting commercial request data- API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve commercial license of type correction and save correction data related to the commercial license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "CorrectRequestController", "Spring Rest Controller", "Expose apis to handle the correction of commercial license data and retrieve all the requests of type correction")
+    Component(correctRequestService, "CorrectRequestService","Spring Service Bean",  "Handle the logic related to the correction of commercial license data and retrieve all the requests of type correction.")
+    Component(licenseMapper, "LicenseMapper","Spring Service Bean",  "Map the request DB entity to license dto.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(correctRequestService, db, "Uses", "TCP/IP")
+
+
+Rel(controller, correctRequestService, "Uses", "JSON/HTTP")
+
+Rel(controller, licenseMapper, "Uses", "JSON/HTTP")
+
+
+@enduml

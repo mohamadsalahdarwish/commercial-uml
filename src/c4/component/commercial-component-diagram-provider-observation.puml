@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing all the observation of the engineering offices and all of its lifecycle for approval of commercial license.  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store engineering offices and their corresponding requests and also observation life cycle for the engineering office approval.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ProviderObservationController", "Spring Rest Controller", "Expose Apis to manage the engineering offices and their corresponding requests and also observing life cycle for the engineering office approval.")
+    Component(officeObservationService, "OfficeObservationService","Spring Service Bean", "Manage all the logic related to the engineering offices and their corresponding requests and also observing life cycle for the engineering office approval.")
+    Component(officeObservationMapper, "OfficeObservationMapper","Spring Service Bean", "Manage the logic for mapping the engineering office DB entity to response dto")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(officeObservationService, db, "Uses", "TCP/IP")
+Rel(controller, officeObservationService, "Uses", "JSON/HTTP")
+Rel(controller, officeObservationMapper, "Uses", "JSON/HTTP")
+
+
+@enduml

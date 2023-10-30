@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for retrieving lookups for board types, worker types, accommodations types , salalma approved center list , cities, malls , districts,credences , vehicle types , self machine types  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store commercial license lookups.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "LookupController", "Spring Rest Controller", "Expose Apis to retrieving lookups for board types, worker types, accommodations types , salalma approved center list , cities, malls , districts,credences , vehicle types , self machine types.")
+    Component(lookupService, "LookupService", "Spring Service Bean", "Manage the logic of retrieving lookups for board types, worker types, accommodations types , salalma approved center list , cities, malls , districts,credences , vehicle types , self machine types.")
+    Component(lookupMapper, "LookupMapper", "Spring Service Bean", "Map the lookup DB entity to dtos.")
+
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, lookupService, "Uses", "JSON/HTTP")
+Rel(controller, lookupMapper, "Uses", "JSON/HTTP")
+
+Rel(lookupService, db, "Uses", "TCP/IP")
+
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing all the commercial requests.  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store all the commercial requests and its corresponding data and activities and activity settings.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "RequestController", "Spring Rest Controller", "Expose Apis to manage all the commercial requests.")
+    Component(requestService, "RequestService","Spring Service Bean", "Manage all mapping related to attachments dto.")
+    Component(attachmentConfigService, "AttachmentConfigService","Spring Service Bean", "Manage all the post supervision request attachments and rejected post supervision attachments.")
+    Component(attachmentService, "AttachmentService","Spring Service Bean", "Manage all the logic related to uploading and downloading attachment.")
+    Component(approvalService, "ApprovalManagerService","Spring Service Bean", "Manage all the logic related to validating commercial requests approval.")
+    Component(salamaService, "SalamaService","Spring Service Bean", "Integrate with salama to validate salama report and bill.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "Load attachments.")
+    Component(requestRepository, "RequestRepository","Spring Service Bean", "Integrate with DB to retrieve , store commercial requests.")
+    Component(activitySettingService, "ActivitySettingService","Spring Service Bean", "Get zone settings related to activity and prohibitive zone for an activity.")
+    Component(officeRequestService, "OfficeRequestService","Spring Service Bean", "Manage the retrieval and logic related to manage the engineering offices related to the commercial request.")
+    Component(requestMapper, "RequestMapper","Spring Service Bean", "Map the request DB object to an entity.")
+    Component(deedService, "DeedService","Spring Service Bean", "Integrate with ministry of justice to get deed ownership options.")
+    Component(requestServiceWithEtmam, "RequestServiceWithEtmam","Spring Service Bean", "Manage the logic for integration with etmam and all the required attached documents.")
+    Component(notificationManagerService, "NotificationManagerService","Spring Service Bean", "Integrate with messaging queue to notify elk about commercial request creation.")
+    Component(requestDetailsRetrievalService, "RequestDetailsRetrievalService","Spring Service Bean", "Get commercial request details.")
+    Component(transactionCancellationService, "TransactionCancellationService","Spring Service Bean", "Delete request , hide request after deletion.")
+
+}
+SystemQueue_Ext(messageBus, "Message Bus", "A message Broker that Enables Async Communication.")
+Container_Ext(commercialQrApi, "CommercialQrService", "C#, ASP", "A Service that  Grant and Validate and  Cancel QR codes")
+Container_Ext(engineeringOfficeApi, "EngineeringOfficeApi", "Java , Spring", "A Service that  Get Engineering Office Details.",$sprite="java")
+
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(requestService, db, "Uses", "TCP/IP")
+Rel(activitySettingService, db, "Uses", "TCP/IP")
+Rel(officeRequestService, db, "Uses", "TCP/IP")
+Rel(requestDetailsRetrievalService, db, "Uses", "TCP/IP")
+Rel(requestRepository, db, "Uses", "TCP/IP")
+
+Rel(notificationManagerService, messageBus, "Uses", "JSON/HTTP")
+
+
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentConfigService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentService, "Uses", "JSON/HTTP")
+Rel(controller, approvalService, "Uses", "JSON/HTTP")
+Rel(controller, salamaService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+Rel(controller, requestRepository, "Uses", "JSON/HTTP")
+Rel(controller, activitySettingService, "Uses", "JSON/HTTP")
+Rel(controller, officeRequestService, "Uses", "JSON/HTTP")
+Rel(controller, requestMapper, "Uses", "JSON/HTTP")
+Rel(controller, deedService, "Uses", "JSON/HTTP")
+Rel(controller, requestServiceWithEtmam, "Uses", "JSON/HTTP")
+Rel(controller, notificationManagerService, "Uses", "JSON/HTTP")
+Rel(controller, requestDetailsRetrievalService, "Uses", "JSON/HTTP")
+Rel(controller, transactionCancellationService, "Uses", "JSON/HTTP")
+Rel(requestMapper, engineeringOfficeApi, "Uses", "JSON/HTTP")
+
+Rel(transactionCancellationService, commercialQrApi, "Uses", "JSON/HTTP")
+
+@enduml

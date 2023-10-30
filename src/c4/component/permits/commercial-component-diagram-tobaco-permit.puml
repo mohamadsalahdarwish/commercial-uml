@@ -1,0 +1,51 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing License Permits ,Cancelling Permits and Activities Permits Related To Commercial License For Tobacco- API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves all the activities related to permits on tobacco activities.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "TobaccoActivityPermitController", "Spring Rest Controller", "Allows users To manage all the activity permits related to tobacco.")
+       Component(tobaccoCancelController, "TobaccoPermitCancelController", "Spring Rest Controller", "Allows users To cancel tobacco permits related to license , delete draft permits .")
+       Component(tobaccoPermitController, "TobaccoPermitController", "Spring Rest Controller", "Allows users to get submit , get, renew permits on license related to tobacco.")
+
+    Component(tobaccoOnActivityPermitService, "TobaccoOnActivityPermitService", "Spring Service Bean", "Manage all the activity permission related to tobacco.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "Calculate the fees related a specific permit on the request.")
+    Component(tobaccoPermitCancelService, "TobaccoPermitCancelService","Spring Service Bean", "Apply the logic for cancelling tobacco permits , retrieve details about the permit , cancel the draft permits and so on.")
+    Component(tobaccoPermitService, "TobaccoPermitService","Spring Service Bean", "Apply the logic for apply , renew permits on license related to tobacco.")
+}
+Container_Ext(gisService, "GIS Service", "C# , ASP", "A Service that  Get Gis Location details By Coordinates and Information About Zones",$sprite="java")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(mvc, tobaccoCancelController, "Uses", "JSON/HTTP")
+Rel(mvc, tobaccoPermitController, "Uses", "JSON/HTTP")
+
+Rel(tobaccoCancelController, tobaccoPermitCancelService, "Uses", "JSON/HTTP")
+Rel(tobaccoCancelController, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(tobaccoPermitController, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(tobaccoPermitService, db, "Uses", "TCP/IP")
+Rel(tobaccoPermitService, calculator, "Uses", "JSON/HTTP")
+
+Rel(tobaccoPermitController, tobaccoPermitService, "Uses", "JSON/HTTP")
+Rel(tobaccoOnActivityPermitService, gisService, "Uses", "JSON/HTTP")
+
+Rel(tobaccoOnActivityPermitService, db, "Uses", "TCP/IP")
+Rel(calculatorRouterService, db, "Uses", "TCP/IP")
+Rel(calculatorRouterService, db, "Uses", "TCP/IP")
+
+Rel(tobaccoPermitCancelService, db, "Uses", "TCP/IP")
+
+Rel(controller, tobaccoOnActivityPermitService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+
+
+@enduml

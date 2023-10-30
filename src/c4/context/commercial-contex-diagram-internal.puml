@@ -1,0 +1,42 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+AddBoundaryTag("solidLine",$borderStyle=SolidLine)
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Business Portal", $tags="solidLine") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "CommercialLicenceApi", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+Container(commonService, "Common Service", "Java Spring", "Common Functionality Among All Services", $sprite="java")
+}
+
+Container_Ext(internalServices, "InternalServices", "Internal Balady Service", "Internal Modules used to Support the generation Of Commercial License")
+
+Container_Ext(apigee, "Apigee", "Java Spring", "Google Cloud’s native API management tool to build, manage, and secure APIs—for any use case, environment, or scale.")
+
+Container_Ext(externalServices, "External Services", "External Services Provided By External Parties Like Ministry Of Justice")
+SystemQueue_Ext(messageBus, "Message Bus", " A message Broker that Enables Async Communication. ", "rabbitmq")
+
+
+Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(mvc, api, "Calls", "HTTP")
+
+Rel(api, commonService, "Calls", "HTTP")
+
+Rel(api, internalServices, "Calls", "HTTP")
+
+Rel(commonService, apigee, "Calls", "HTTP")
+
+Rel(commonService, internalServices, "Calls", "HTTP")
+
+Rel(apigee, externalServices, "Calls", "HTTP")
+
+Rel(api, messageBus, "Calls", "amqp")
+
+
+@enduml

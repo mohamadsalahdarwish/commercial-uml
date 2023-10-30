@@ -1,0 +1,55 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing cancellation of commercial license- API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/store license and its details.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "MobileCancelRequestController", "Spring Rest Controller", "Expose apis to manage the cancellation of the commercial request.")
+    Component(cancelRequestService, "CancelRequestService","Spring Service Bean", "A Service that make a cancellation request to cancel the commercial license.")
+    Component(requestService, "RequestService","Spring Service Bean", "A Service that query if user is directed to pay.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "A Service that calculate commercial fees.")
+    Component(requestServiceWithEtmam, "RequestServiceWithEtmam","Spring Service Bean", "A Service that get requested attachments for etmam , upload attachments related to etmam .")
+    Component(attachmentConfigService, "AttachmentConfigService","Spring Service Bean", "Manage all the post supervision request attachments and rejected post supervision attachments.")
+    Component(attachmentService, "AttachmentService","Spring Service Bean", "A Service that upload post attachment , query if attachment for post supervision, get latest attachment list.")
+    Component(licenseService, "LicenseService","Spring Service Bean",  "Handle the logic for getting license data and transferred ownership license , cancel instant observation from engineering offices , get cancelled license report, validate license, get license permits, get license for health certificates, release locked license observation, get license data by qr code.")
+    Component(attachmentMapper, "AttachmentMapper","Spring Service Bean", "A Service that map attachment db object to dto.")
+    Component(lookupService, "LookupService","Spring Service Bean", "A Service that used to get commercial license lookups like accommodation types.")
+    Component(lookupMapper, "LookupMapper","Spring Service Bean", "A Service that map lookups db object ot dto.")
+    Component(gsbService, "GsbService","Spring Service Bean", "A Governmental service bus to integrate with governmental institutes like integrate with raqeb service to get clean contract .")
+}
+Container_Ext(selfSurveyApi, "Self Survey Api", "C#, ASP", "A Service that Get More Information About the License Rating.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+Rel(controller, cancelRequestService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(controller, requestServiceWithEtmam, "Uses", "JSON/HTTP")
+Rel(controller, attachmentConfigService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentService, "Uses", "JSON/HTTP")
+Rel(controller, licenseService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentMapper, "Uses", "JSON/HTTP")
+Rel(controller, lookupService, "Uses", "JSON/HTTP")
+Rel(controller, lookupMapper, "Uses", "JSON/HTTP")
+Rel(controller, gsbService, "Uses", "JSON/HTTP")
+
+Rel(cancelRequestService, db, "Uses", "TCP/IP")
+Rel(requestService, db, "Uses", "TCP/IP")
+Rel(requestServiceWithEtmam, db, "Uses", "TCP/IP")
+Rel(licenseService, db, "Uses", "TCP/IP")
+Rel(lookupService, db, "Uses", "TCP/IP")
+
+Rel(licenseService, selfSurveyApi, "Uses", "JSON/HTTP")
+
+
+@enduml

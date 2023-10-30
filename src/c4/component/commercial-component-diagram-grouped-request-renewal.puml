@@ -1,0 +1,22 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing license renewal for a group of owners  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store commercial license request and commercial license renewal for a group of onwers.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "RenewGroupRequestController", "Spring Rest Controller", "Expose Apis to manage the commercial license renewal for a group of owner.")
+    Component(renewGroupRequestService, "RenewGroupRequestService", "Spring Service Bean", "Manage the logic of managing the commercial license renewal for a group of owner.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, renewGroupRequestService, "Uses", "JSON/HTTP")
+
+Rel(renewGroupRequestService, db, "Uses", "TCP/IP")
+
+@enduml

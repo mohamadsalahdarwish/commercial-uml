@@ -1,0 +1,24 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for creating and retrieving objection on  commercial license bill fees - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store objection on bill fees type for a commercial license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ObjectionOnBillFeesController", "Spring Rest Controller", "Expose Apis to manage the objection on bill fees.")
+    Component(objectionOnBillFeesService, "ObjectionOnBillFeesService", "Spring Service Bean", "Manage the logic of objection on bill fees and attach the objection to them.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "Generic service to handle file upload/download.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(objectionOnBillFeesService, db, "Uses", "TCP/IP")
+Rel(controller, objectionOnBillFeesService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+
+@enduml

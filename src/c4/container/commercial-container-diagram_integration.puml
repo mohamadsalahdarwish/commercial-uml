@@ -1,0 +1,50 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+'Main Containers'
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Business Portal") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "Commercial Licence Api", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+Container(commonService, "Common Service", "Java Spring", "Common Functionality Among All Services", $sprite="java")
+}
+
+Container_Ext(integrationLayer, "Integration Layer", "IntegrationLayer(Apigee)", "A Service that Managing high value/volume of APIs with enterprise-grade security and dev engagement.")
+Container_Ext(ministryOfMunicipalAndRuralAffairsAndHousing, "Ministry of Municipal and Rural Affairs and Housing", "External Service", "A Service that  Get Information About Ejar Contracts and Status.")
+Container_Ext(generalSecurity, "General Security", "External Service", "A Service that Get Approval For General Security.")
+Container_Ext(ministryOfLabor, "Ministry Of Labor", "External Service", "Get Labor Info Related To Employee.")
+Container_Ext(ministyOfJustice, "Ministry of Justice", "External Service", "Get Information About Deeds.")
+Container_Ext(moj, "Moj API", "External Service", "Provide Apis For Integration With Ministry Of Justice.")
+Container_Ext(baladyInvestmentContract, "Balady Investment Contract(Foras)", "External Service", "Get Information About Investment Electronic Contracts.")
+Container_Ext(salama, "Salama", "External Service", "Integrate with Civil Defense to Buy And Construct Salama Tools and Get Salama Report Number.")
+Container_Ext(ministryOfCommerce, "Ministry Of Commerce", "External Service", "A Service that Get Information About Commercial Records , Commercial Record Applicant Relation ,Registration Ownership , Info About Blocked Families .")
+Container_Ext(nationalInformationCenter, "National Information Center(Tawakkalna)", "External Service", "Get Information About Citizen.")
+
+
+
+'Integration Layer Relations'
+Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(mvc, api, "Calls", "HTTP")
+Rel(api, commonService, "Calls", "HTTP")
+Rel(api, integrationLayer, "Calls", "HTTP")
+
+Rel(commonService, integrationLayer, "Calls", "HTTP")
+Rel(integrationLayer, ministryOfMunicipalAndRuralAffairsAndHousing, "Calls", "HTTP")
+Rel(integrationLayer, generalSecurity, "Calls", "HTTP")
+Rel(integrationLayer, ministryOfLabor, "Calls", "HTTP")
+Rel(integrationLayer, ministyOfJustice, "Calls", "HTTP")
+Rel(integrationLayer,moj , "Calls", "HTTP")
+Rel(integrationLayer, baladyInvestmentContract, "Calls", "HTTP")
+Rel(integrationLayer, salama, "Calls", "HTTP")
+Rel(integrationLayer, ministryOfCommerce, "Calls", "HTTP")
+Rel(integrationLayer, nationalInformationCenter, "Calls", "HTTP")
+
+
+
+@enduml

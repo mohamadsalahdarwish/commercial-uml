@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for migrating commercial license to another municipality
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Store the new migrated location for the commercial license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "MigrationController", "Spring Rest Controller", "Expose Apis for migrating the license to another municipality.")
+    Component(migrationService, "MigrationService", "Spring Service Bean", "perform the logic and validation for migrating the license to another municipality.")
+
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, migrationService, "Uses", "JSON/HTTP")
+
+Rel(migrationService, db, "Uses", "TCP/IP")
+
+
+@enduml

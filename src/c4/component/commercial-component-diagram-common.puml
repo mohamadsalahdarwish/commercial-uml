@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for applying common functionality like commercial license for housing , retrieving investment in municipalities - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  " Retrieve commercial license for housing , retrieving investment in municipalities .")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "CommonController", "Spring Rest Controller", "Expose Apis to manage common functionality like retrieving commercial license for housing , retrieving investment in municipalities.")
+    Component(commonService, "CommonService", "Spring Rest Controller", "Apply logic for retrieving commercial license for housing , retrieving investment in municipalities.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(commonService, db, "Uses", "TCP/IP")
+Rel(controller, commonService, "Uses", "JSON/HTTP")
+
+
+@enduml

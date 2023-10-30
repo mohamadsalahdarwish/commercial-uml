@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for creating and retrieving objection on a cancelled commercial license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store cancelled commercial licenses request with their objections.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ObjectionRevokedLicenseController", "Spring Rest Controller", "Expose Apis to manage the license related to objection on cancelled commercial requests.")
+    Component(objectionRevokedLicenseService, "ObjectionRevokedLicenseService", "Spring Service Bean", "Manage the logic of retrieving cancelled commercial request and attach the objection to them.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(objectionRevokedLicenseService, db, "Uses", "TCP/IP")
+Rel(controller, objectionRevokedLicenseService, "Uses", "JSON/HTTP")
+
+
+@enduml

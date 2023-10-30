@@ -1,0 +1,61 @@
+@startuml
+!theme C4_united from https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/themes
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Sequence.puml
+
+Person(Beneficiary, "Beneficiary", $sprite="person,scale=0.3")
+System(BaladyPortal, "Balady Portal", $sprite="person,scale=0.3")
+System(MinistryOfCommercial, "Ministry Of Commercial", $sprite="person,scale=0.3")
+System(BaladyStore, "Balady Store", $sprite="person,scale=0.3")
+System(BaladyStore, "Balady Store", $sprite="person,scale=0.3")
+
+Rel(Beneficiary, BaladyPortal, "Enter Commercial Record Number")
+
+Rel(BaladyPortal, MinistryOfCommercial, "Get Facility Info By Commercial Record")
+
+Rel(MinistryOfCommercial, BaladyPortal, "Facility Info Retrieved")
+
+
+alt  Beneficiary Choose to Continue On Balady
+    Rel(BaladyPortal, BaladyPortal, "Continue the Process On Balady ")
+else Etmam Plus is Active and Beneficiary Choose It
+        Rel(BaladyPortal, BaladyStore, "Continue the Process On Etmam Plus")
+end
+
+== Main Activity ==
+alt successful case
+Rel(BaladyPortal, MinistryOfCommercial, "Get Main Isic Activity Related To Commercial Record")
+
+alt Check If Isic Main Activity Exist In balady
+    Rel(BaladyPortal, BaladyPortal, "Main Isic Activity Exist in DB")
+else Isic Main Activity doesn't Exist
+        Rel(BaladyPortal, Beneficiary, "Inform Beneficiary")
+end
+
+else No Isic Activity Related To
+        Rel(BaladyPortal, Beneficiary, "Inform Beneficiary")
+
+== Sub Activity ==
+
+Rel(Beneficiary, BaladyPortal, "Choose All Sub Activity")
+
+Rel(BaladyPortal, BaladyPortal, "Check If Applicable and Exist In Ministry Activities")
+
+Rel(BaladyPortal, Beneficiary, "Inform Beneficiary")
+
+== Flow ==
+Rel(Beneficiary, BaladyPortal, "Fill Business Shop Details")
+ref over BaladyPortal
+  Check For Cleaning Contract If Needed
+end ref
+
+ref over BaladyPortal
+  Integrate With EJar Platform if needed to check Contract Status
+end ref
+
+end
+
+
+
+
+
+@enduml

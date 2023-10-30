@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing License Rating - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store rating related to license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "LicenseRatingController", "Spring Rest Controller", "Expose Apis to manage the rating for license.")
+    Component(licenseRatingService, "LicenseRatingService", "Spring Service Bean", "Manage the logic related to rating a license, get license clauses for rating.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(licenseRatingService, db, "Uses", "TCP/IP")
+
+
+Rel(controller, licenseRatingService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

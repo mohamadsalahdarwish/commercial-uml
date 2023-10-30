@@ -1,0 +1,36 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Business Portal") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "Commercial Licence Api", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+}
+
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+Container_Ext(boardContract, "Board Contract Service", "Java Spring", "A Service that Get Board Contract Owned By Beneficiary",$sprite="java")
+Container_Ext(boardContractConfig, "Board Contract Configuration Service", "Java Spring", "A Service that  Get Zone Setting For Board and Requirements Related To Specific Isic Activity",$sprite="java")
+Container_Ext(commercialQrApi, "Commercial Qr Service", "C#, ASP", "A Service that  Grant and Validate and  Cancel QR codes")
+Container_Ext(commercialIssuingConsultation, "Commercial Issuing Consultation Service", "C#, ASP", "The CLA calls Commercial Issuing Consultation service via http to simulate the same procedure to produce a license without any fees to have an understanding about limitation.")
+Container_Ext(craftService, "Craft Service", "Java , Spring", "A Service that  Craft Service for granting Craft Licence and Validate Crafts For Commercial License.",$sprite="java")
+Container_Ext(engineeringOfficeApi, "Engineering Office Api", "Java , Spring", "A Service that  Get Engineering Office Details.",$sprite="java")
+
+
+Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(mvc, api, "Calls", "HTTP")
+Rel(api, calculator, "Calls", "HTTP")
+Rel(api, boardContract, "Calls", "HTTP")
+Rel(boardContract, boardContractConfig, "Calls", "HTTP")
+Rel(api, commercialQrApi, "Calls", "HTTP")
+Rel(api, commercialIssuingConsultation, "Calls", "HTTP")
+Rel(api, craftService, "Calls", "HTTP")
+Rel(api, engineeringOfficeApi, "Calls", "HTTP")
+
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for integration with governmental sectors to get data for commercial license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container_Ext(integrationLayer, "Integration Layer", "IntegrationLayer(Apigee)", "A Service that Managing high value/volume of APIs with enterprise-grade security and dev engagement.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "IntegrationController", "Spring Rest Controller", "Expose Apis to manage the retrieval of data from governmental sectors like ministry of justice to get deed info , ministry of commerce to validate commercial record with owner , efaa to get all the violation fines.")
+    Component(deedService, "DeedService", "Spring Service Bean", "Manage the logic and validation for the retrieval of data from ministry of justice to get deed info.")
+    Component(mciService, "MciService", "Spring Service Bean", "Manage the logic and validation for the retrieval of data from ministry of commerce to validate commercial record with owner.")
+    Component(efaaService, "EfaaService", "Spring Service Bean", "Manage the logic and validation for the retrieval of data from EFAA to get all the violation fines.")
+
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, deedService, "Uses", "JSON/HTTP")
+Rel(controller, mciService, "Uses", "JSON/HTTP")
+Rel(controller, efaaService, "Uses", "JSON/HTTP")
+
+Rel(deedService, integrationLayer, "Uses", "JSON/HTTP")
+Rel(mciService, integrationLayer, "Uses", "JSON/HTTP")
+Rel(efaaService, integrationLayer, "Uses", "JSON/HTTP")
+
+
+@enduml

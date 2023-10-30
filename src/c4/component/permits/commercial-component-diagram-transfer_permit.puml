@@ -1,0 +1,38 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for granting and validating permits related to transfer of commercial license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store licenses related to transfer request type.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "TransferRequestController", "Spring Rest Controller", "Expose Apis to manage the license related transfer type.")
+    Component(transportPermitService, "TransferRequestService", "Spring Service Bean", "Manage the logic of permits related to license commercial request related to transfer type.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "Integrated with Balady App Calculator Service to calculate the fees related to the service.")
+}
+Container_Ext(licenseSuspension, "License Suspension", "External Service", "Provide Apis For Integration With Ministry Of Justice.")
+
+Container_Ext(nationalInformationCenter, "National Information Center(Tawakkalna)", "External Service", "Get Information About Citizen.")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(transportPermitService, db, "Uses", "TCP/IP")
+
+
+Rel(controller, transportPermitService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+Rel(transportPermitService, licenseSuspension, "Uses", "JSON/HTTP")
+Rel(transportPermitService, nationalInformationCenter, "Uses", "JSON/HTTP")
+
+
+Rel(transportPermitService, calculator, "Uses", "JSON/HTTP")
+
+@enduml

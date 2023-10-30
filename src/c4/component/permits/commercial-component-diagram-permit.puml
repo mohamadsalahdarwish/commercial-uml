@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing Activities Permits Related To Commercial License - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves activities ,ISIC Activities , ISIC Activites for related facilities , homogenous and inhomogenous activities related to main activity ,ISIC activies related to commercial record etc.")
+Container_Ext(calculator, "BaladyAppCalculatorService", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ActivityPermitController", "Spring Rest Controller", "Allows users To manage/retrieve their activities permits")
+    Component(activityPermitService, "ActivityPermitService", "Spring Service Bean", "Manage all the logic related to granting/retrieving permits related to activities.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "Calculate the fees related a specific permit on the request.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(activityPermitService, db, "Uses", "TCP/IP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+Rel(controller, activityPermitService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

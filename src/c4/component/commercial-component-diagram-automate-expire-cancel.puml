@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing commercial license request for automated expired license cancellation - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store commercial request with type automated expired license cancellation and set license status.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "TransportPermitController", "Spring Rest Controller", "Expose Apis to manage the license related to expired license cancellation type.")
+    Component(service, "AutomatedExpiredLicensesCancelationService", "Spring Service Bean", "Manage the logic of setting the request type to expired license cancellation and set the license to be expired, creating bill and calculate fees for the request,delete the request.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(service, db, "Uses", "TCP/IP")
+Rel(controller, service, "Uses", "JSON/HTTP")
+
+
+
+@enduml
