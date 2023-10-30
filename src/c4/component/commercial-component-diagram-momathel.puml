@@ -1,0 +1,28 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for commercial license related to momathil - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+   ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve information about the commercial license and activity settings , request types.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "MomtathilController", "Spring Rest Controller", "Expose apis to manage momathil license.")
+    Container(momtathilService, "MomtathilService", "Java Spring", "A Service that get permits, get license data by license id , get request data, update license service from momathil,send license to momthil, get malls.",$sprite="java")
+    Container(activitySettingService, "ActivitySettingService", "Java Spring", "A Service that  manage activity setting like getting prohibitive zones",$sprite="java")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, momtathilService, "Uses", "JSON/HTTP")
+Rel(controller, activitySettingService, "Uses", "JSON/HTTP")
+
+Rel(momtathilService, db, "Uses", "TCP/IP")
+Rel(activitySettingService, db, "Uses", "TCP/IP")
+
+
+@enduml

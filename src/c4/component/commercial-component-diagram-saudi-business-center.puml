@@ -1,0 +1,22 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for exposing all the saudi business center data  like license activities , immediate activities, fees,license issuing, commercial license status,data, mall lists , clean electronic contracts,pest and furniture, homogenous activities.  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store all the license activites , and activities types like immediate and furniture, homogenous.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "SaudiBusinessCenterControllerV2", "Spring Rest Controller", "Expose Apis to manage all the saudi business center data  like license activities , immediate activities, fees,license issuing, commercial license status,data, mall lists , clean electronic contracts,pest and furniture, homogenous activities.")
+    Component(saudiBusinessCenterServiceV2, "SaudiBusinessCenterServiceV2","Spring Service Bean", "Manage all the logic related to the saudi business center data  like license activities , immediate activities, fees,license issuing, commercial license status,data, mall lists , clean electronic contracts,pest and furniture, homogenous activities.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(saudiBusinessCenterServiceV2, db, "Uses", "TCP/IP")
+Rel(controller, saudiBusinessCenterServiceV2, "Uses", "JSON/HTTP")
+
+@enduml

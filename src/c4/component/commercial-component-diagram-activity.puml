@@ -1,0 +1,36 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing Activities Related To Commercial License - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves activities ,ISIC Activities , ISIC Activites for related facilities , homogenous and inhomogenous activities related to main activity ,ISIC activies related to commercial record etc.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ActivityController", "Spring Rest Controller", "Allows users to manage their activities")
+    Component(activityDetailService, "ActivityDetailService", "Spring Service Bean", "Get All Details related to the activity like filtering by ISIC number , vehicle detailed activities, etc.")
+    Component(isicActivityService, "IsicActivityService", "Spring Service Bean", "Get all activities related to ISIC activities.")
+    Component(pendingActivityService, "PendingActivityService", "Spring Service Bean", "Retrieve OR update status of pending activities like approval, etc.")
+
+    Rel(activityDetailService, db, "Read & write to", "JDBC")
+    Rel(isicActivityService, db, "Read & write to", "JDBC")
+    Rel(pendingActivityService, db, "Read & write to", "JDBC")
+
+}
+
+Container_Ext(activityManagementApi, "Activity Management Api", "Java, Spring", "A Service that  Manage the Activities Related to Granting Commercial License(Validate Activities Related To Salam Report and Meeting Civil Defense Rules)")
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, db, "Uses", "TCP/IP")
+Rel(activityDetailService, activityManagementApi, "Uses", "JSON/HTTP")
+
+Rel(controller, activityDetailService, "Uses", "JSON/HTTP")
+Rel(controller, isicActivityService, "Uses", "JSON/HTTP")
+Rel(controller, pendingActivityService, "Uses", "JSON/HTTP")
+
+
+@enduml

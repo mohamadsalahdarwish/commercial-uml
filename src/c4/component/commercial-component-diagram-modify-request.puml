@@ -1,0 +1,47 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing modifying commercial license request - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/store license and its details.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ModifyRequestController", "Spring Rest Controller", "Expose apis to manage the modification of commercial license or vehicle commercial request.")
+    Component(modifyRequestService, "ModifyRequestService","Spring Service Bean", "A Service that submit a modification request,save activity info related to request, save location, save shop info and board, validate a new activity.")
+    Component(vehicleModifyRequestService, "VehicleModifyRequestService","Spring Service Bean", "A Service that save submitter and owner info for the vehicle commercial license, save vehicle details,save shop details,save vehicle location,.")
+    Component(requestService, "RequestService","Spring Service Bean", "A Service that manage save attachment related to the request.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "A Service that calculate commercial fees for vehicle router.")
+    Component(selRequestAttachmentRepository, "SelRequestAttachmentRepository","Spring Service Bean", "A Service that get self-service attachment from DB.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "A Service that load attachment.")
+}
+
+Container_Ext(activityManagementApi, "Activity Management Api", "Java, Spring", "A Service that  Manage the Activities Related to Granting Commercial License(Validate Activities Related To Salam Report and Meeting Civil Defense Rules)")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+Rel(controller, modifyRequestService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+Rel(controller, vehicleModifyRequestService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(controller, selRequestAttachmentRepository, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+Rel(modifyRequestService, activityManagementApi, "Uses", "JSON/HTTP")
+
+Rel(modifyRequestService, db, "Uses", "TCP/IP")
+Rel(requestService, db, "Uses", "TCP/IP")
+Rel(vehicleModifyRequestService, db, "Uses", "TCP/IP")
+Rel(requestService, db, "Uses", "TCP/IP")
+Rel(selRequestAttachmentRepository, db, "Uses", "TCP/IP")
+
+
+
+
+@enduml

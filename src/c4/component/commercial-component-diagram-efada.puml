@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing request of type efada( medical certificate for Riyad) - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve commercial license of type efada and its activities.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "EfadaRequestController", "Spring Rest Controller", "Expose apis to handle the submitting of request  of type efada and retrieval of request details of type efada , submitter owner details , activity info")
+    Component(efadahRequestService, "EfadaRequestService","Spring Service Bean",  "Handle the logic related to handling the submitting of request  of type efada and retrieval of request details of type efada , submitter owner details , activity info.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(efadahRequestService, db, "Uses", "TCP/IP")
+
+
+Rel(controller, efadahRequestService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

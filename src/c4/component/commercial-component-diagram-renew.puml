@@ -1,0 +1,43 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for renewing commercial license including vehicle license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store commercial license and requests data.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "NonFoodPermitController", "Spring Rest Controller", "Expose Apis to manage the renewal of the commercial license including license for vehicle type including necessary approval for modifying activity , shop info, boards, isMunicipality approval required.")
+    Component(renewRequestService, "RenewRequestService", "Spring Service Bean", "Manage the logic of license renewal including vehicle license including necessary approval for modifying activity , shop info, boards, isMunicipality approval required.")
+    Component(requestService, "RequestService","Spring Service Bean", "Manage the logic related to request.")
+    Component(sharedService, "SharedService","Spring Service Bean", "Shared Logic across all controller.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "A Service that Calculate Cost For Granting Commercial License.")
+    Component(attachmentHandler, "AttachmentHandler","Spring Service Bean", "Generic service to handle file upload/download.")
+
+}
+Container_Ext(blockedClientsApi, "Blocked Clients Api", "Java, Spring", "A Service that  Validate If The Client Is Blocked in the Municipality for the Provided Service.",$sprite="java")
+Container_Ext(boardContract, "Board Contract Service", "Java Spring", "A Service that Get Board Contract Owned By Beneficiary",$sprite="java")
+Container_Ext(boardContractConfig, "Board Contract Configuration Service", "Java Spring", "A Service that  Get Zone Setting For Board and Requirements Related To Specific Isic Activity",$sprite="java")
+Container_Ext(craftService, "CraftService", "Java , Spring", "A Service that  Craft Service for granting Craft Licence and Validate Crafts For Commercial License.",$sprite="java")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, renewRequestService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+Rel(controller, attachmentHandler, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(controller, sharedService, "Uses", "JSON/HTTP")
+Rel(renewRequestService, db, "Uses", "TCP/IP")
+Rel(requestService, db, "Uses", "TCP/IP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+Rel(sharedService, boardContract, "Uses", "JSON/HTTP")
+Rel(boardContract, boardContractConfig, "Uses", "JSON/HTTP")
+Rel(renewRequestService, craftService, "Uses", "JSON/HTTP")
+Rel(sharedService, blockedClientsApi, "Uses", "JSON/HTTP")
+
+@enduml

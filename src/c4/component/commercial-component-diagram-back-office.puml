@@ -1,0 +1,30 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing backoffice operation - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve commercial license for automated or expired licenses.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "BackOfficeOperationsController", "Spring Rest Controller", "Expose apis for backoffice operation after license rejection or cancellation")
+    Component(backOfficeOperationsService, "BackOfficeOperationsService","Spring Service Bean",  "Perform the logic related to backoffice operations after license rejection.")
+    Component(cancelRequestService, "CancelRequestService","Spring Service Bean",  "Perform the logic related to backoffice operations after license  cancellation.")
+
+}
+Container_Ext(commercialQrApi, "Commercial Qr Service", "C#, ASP", "A Service that  Grant and Validate and  Cancel QR codes")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(backOfficeOperationsService, db, "Uses", "TCP/IP")
+Rel(cancelRequestService, db, "Uses", "TCP/IP")
+
+Rel(controller, backOfficeOperationsService, "Uses", "JSON/HTTP")
+Rel(controller, cancelRequestService, "Uses", "JSON/HTTP")
+Rel(backOfficeOperationsService, commercialQrApi, "Uses", "JSON/HTTP")
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for sending notification after bill cancellation - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve bill data by bill number.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "NicController", "Spring Rest Controller", "Manage notification after bill cancellatin")
+    Component(nicService, "NicService","Spring Service Bean",  "Handle the logic for sending notification after bill cancellation.")
+}
+SystemQueue_Ext(messageBus, "Message Bus", "A message Broker that Enables Async Communication.")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(nicService, db, "Uses", "TCP/IP")
+Rel(nicService, messageBus, "Uses", "JSON/HTTP")
+
+
+Rel(controller, nicService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

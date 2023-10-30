@@ -1,0 +1,33 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Business Portal") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "Commercial Licence Api", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+Container(commonService, "Common Service", "Java Spring", "Common Functionality Among All Services", $sprite="java")
+}
+Container_Ext(sadad, "Sadad Api Gateway", "SoftwareService", "API Gateway For Payment")
+
+
+Container_Ext(baladyBillsService, "Balady Bills Service", "Java, Spring", "Integerate With Sadad APi Gateway for Generating Bills",$sprite="java")
+Container_Ext(integrationLayer, "Integration Layer", "IntegrationLayer(Apigee)", "A Service that Managing high value/volume of APIs with enterprise-grade security and dev engagement.")
+Container_Ext(baladyBillsService, "Balady Bills Service", "External Service", "Grant/Cancel Special Permission For Business Openning in Crisis(Corona).")
+Container_Ext(moj, "Moj API", "External Service", "Provide Apis For Integration With Ministry Of Justice.")
+
+
+Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(mvc, api, "Calls", "HTTP")
+Rel(api, commonService, "Calls", "HTTP")
+Rel(commonService, baladyBillsService, "Calls", "HTTP")
+Rel(baladyBillsService, sadad, "Calls", "HTTP")
+Rel(commonService, integrationLayer, "Calls", "HTTP")
+Rel(commonService ,moj , "Calls", "HTTP")
+
+@enduml

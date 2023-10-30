@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing fees calculation for the Commercial License - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "CalculatorController", "Spring Rest Controller", "Allows users To calculate fees related to their commercial license")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "Integrated with Balady App Calculator Service to calculate the fees related to the service.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

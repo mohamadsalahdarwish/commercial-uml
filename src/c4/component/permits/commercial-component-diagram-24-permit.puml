@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for granting and validating a 24 hours permits on a license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store licenses with request type 24 hours permit.")
+Container_Ext(calculator, "Balady App Calculator Service", "C#", "A Service that Calculate Cost For Granting Commercial License")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "TransportPermitController", "Spring Rest Controller", "Expose Apis to manage the license related to 24 hours permit type.")
+    Component(twentyFourPermitService, "TwentyFourPermitService", "Spring Service Bean", "Manage the logic of permits related to license commercial reqeust related to 24 hours permit type.")
+    Component(calculatorRouterService, "CalculatorRouterService","Spring Service Bean", "Integrated with Balady App Calculator Service to calculate the fees related to the service.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(twentyFourPermitService, db, "Uses", "TCP/IP")
+Rel(controller, twentyFourPermitService, "Uses", "JSON/HTTP")
+Rel(controller, calculatorRouterService, "Uses", "JSON/HTTP")
+Rel(calculatorRouterService, calculator, "Uses", "JSON/HTTP")
+
+
+@enduml

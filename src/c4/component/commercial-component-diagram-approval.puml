@@ -1,0 +1,31 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing General Security Approvals Related To Commercial License Request - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store Activity Approvals And Settings.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ApprovalController", "Spring Rest Controller", "Allows To manage approval related to general security.")
+    Component(generalSecurityService, "GeneralSecurityService", "Spring Service Bean", "Update General Security Approval Status.")
+    Component(approvalManagerService, "ApprovalManagerService","Spring Service Bean", "Process general Security Approvals.")
+    Component(requestService, "RequestService","Spring Service Bean", "Execute the request after approval.")
+
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(generalSecurityService, db, "Uses", "JSON/HTTP")
+Rel(approvalManagerService, db, "Uses", "JSON/HTTP")
+Rel(requestService, db, "Uses", "TCP/IP")
+
+Rel(controller, generalSecurityService, "Uses", "JSON/HTTP")
+Rel(controller, approvalManagerService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing self machine, self machines types and retrieving machine usage  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store self machine types , get machine usage.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "SelfMachineTypeController", "Spring Rest Controller", "Expose Apis to manage Self Service Machine types.")
+    Component(selfMachineTypeRepository, "SelfMachineTypeRepository", "Spring Service Bean", "Manage the logic of retrieving/storing self machine types.")
+    Component(selfMachineTypeService, "SelfMachineTypeService", "Spring Service Bean", "Manage the logic of retrieving/storing self machine types.")
+    Component(selfMachineTypeMapper, "SelfMachineTypeMapper", "Spring Service Bean", "Convert db self machine type object to local self delivery machine object.")
+    Component(lookupRepository, "LookupRepository", "Spring Service Bean", "Manage the store/retrieval of lookups related to self-service machine types.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, selfMachineTypeRepository, "Uses", "JSON/HTTP")
+Rel(controller, selfMachineTypeService, "Uses", "JSON/HTTP")
+Rel(controller, selfMachineTypeMapper, "Uses", "JSON/HTTP")
+Rel(controller, lookupRepository, "Uses", "JSON/HTTP")
+
+Rel(selfMachineTypeRepository, db, "Uses", "TCP/IP")
+Rel(selfMachineTypeService, db, "Uses", "TCP/IP")
+Rel(selfMachineTypeMapper, db, "Uses", "TCP/IP")
+Rel(lookupRepository, db, "Uses", "TCP/IP")
+
+@enduml

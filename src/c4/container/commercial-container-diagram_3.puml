@@ -1,0 +1,34 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Business Portal") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "Commercial Licence Api", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+}
+
+Container_Ext(healthCertificateService, "Health Certificate Service", "External Service", "Get And Check health Certificates for Specific Users.")
+Container_Ext(classsificationPega, "Classification Pega", "External Service", "Get Information About Activities and Its Classifications And Special Activities that Require Special handling Like Furniture.")
+Container_Ext(blockedClientsApi, "Blocked Clients Api", "Java, Spring", "A Service that  Validate If The Client Is Blocked in the Municipality for the Provided Service.",$sprite="java")
+Container_Ext(baladyServicesAPI, "Balady Services API", "Java", "A Service that  Validate And Retrieve Commercial Records For Commissioner.",$sprite="java")
+Container_Ext(activityManagementApi, "Activity Management Api", "Java, Spring", "A Service that  Manage the Activities Related to Granting Commercial License(Validate Activities Related To Salam Report and Meeting Civil Defense Rules)")
+Container_Ext(licenseSuspension, "License Suspension", "External Service", "Provide Apis For Integration With Ministry Of Justice.")
+SystemQueue_Ext(messageBus, "Message Bus", "A message Broker that Enables Async Communication.")
+
+Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(mvc, api, "Calls", "HTTP")
+Rel(api, healthCertificateService, "Calls", "HTTP")
+Rel(api, classsificationPega, "Calls", "HTTP")
+Rel(api, blockedClientsApi, "Calls", "HTTP")
+Rel(api, baladyServicesAPI, "Calls", "HTTP")
+Rel(api, activityManagementApi, "Calls", "HTTP")
+Rel(api, licenseSuspension, "Calls", "HTTP")
+Rel(api ,messageBus , "Send Messages To ", "amqp")
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing qr codes for scanning to get more information about the shop  - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store qr code data related to the license and also requests data.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "NonFoodPermitController", "Spring Rest Controller", "Expose Apis to manage the qr code related to the license and it's data like location details , work times , etc.")
+    Component(qrCodeService, "QrCodeService", "Spring Service Bean", "Manage the logic of managing the qr code related to the license and it's data like location details , work times , etc.")
+    Component(requestService, "RequestService","Spring Service Bean", "Manage the logic related to request.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, qrCodeService, "Uses", "JSON/HTTP")
+Rel(controller, requestService, "Uses", "JSON/HTTP")
+
+Rel(qrCodeService, db, "Uses", "TCP/IP")
+Rel(requestService, db, "Uses", "TCP/IP")
+
+@enduml

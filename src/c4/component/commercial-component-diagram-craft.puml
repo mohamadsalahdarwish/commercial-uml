@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing  craft integration Related To Commercial License - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(activityDB, " Database", "Relational Database Schema",  "Store commercial license for crafts.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "CrafIntegrationController", "Spring Rest Controller", "Allows users To manage/retrieve their activities permits")
+    Component(craftIntegrationService, "CraftIntegrationService","Spring Service Bean",  "Get Commercial Records related to commercial record id and type  or get commercial records by commercial license.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(craftIntegrationService, activityDB, "Uses", "JSON/HTTP")
+
+Rel(controller, craftIntegrationService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

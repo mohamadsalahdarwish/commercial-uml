@@ -1,0 +1,24 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for retrieving licenses and delete repeated ones - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store commercial license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "RepeatedLicensesController", "Spring Rest Controller", "Expose Apis to manage the retrieval of commercial license and delete repeated ones.")
+    Component(service, "RepeatedLicensesService", "Spring Service Bean", "Manage the logic of repeated license.")
+
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, service, "Uses", "JSON/HTTP")
+Rel(service, db, "Uses", "TCP/IP")
+
+
+@enduml

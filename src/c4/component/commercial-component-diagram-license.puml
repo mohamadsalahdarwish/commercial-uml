@@ -1,0 +1,38 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing license , group license, engineering office observation - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Store/Retrieve license data and its details.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "LicenseController", "Spring Rest Controller", "Expose Apis to manage and retrieve commercial license with all of its types like cancelled , transferred and their corresponding observation engineering offices.")
+    Component(licenseService, "LicenseService","Spring Service Bean",  "Handle the logic for getting license data and transferred ownership license , cancel instant observation from engineering offices , get cancelled license report, validate license, get license permits, get license for health certificates, release locked license observation, get license data by qr code.")
+    Component(licenseMapper, "LicenseMapper","Spring Service Bean",  "Handle the logic for mapping license db entity to dto.")
+    Component(groupedLicenseRepository, "GroupedLicenseRepository","Spring Service Bean",  "Handle the logic for getting grouped license.")
+    Component(observationService, "ObservationService","Spring Service Bean",  "Handle the logic for executing observation from either momathel or engineering office.")
+}
+Container_Ext(selfSurveyApi, "Self Survey Api", "C#, ASP", "A Service that Get More Information About the License Rating.")
+
+SystemQueue_Ext(messageBus, "Message Bus", "A message Broker that Enables Async Communication.")
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(licenseService, db, "Uses", "TCP/IP")
+Rel(groupedLicenseRepository, db, "Uses", "TCP/IP")
+
+Rel(licenseService, selfSurveyApi, "Uses", "JSON/HTTP")
+Rel(controller, licenseService, "Uses", "JSON/HTTP")
+Rel(controller, licenseMapper, "Uses", "JSON/HTTP")
+Rel(controller, groupedLicenseRepository, "Uses", "JSON/HTTP")
+Rel(controller, observationService, "Uses", "JSON/HTTP")
+Rel(observationService, messageBus, "Calls", "amqp")
+
+
+
+@enduml

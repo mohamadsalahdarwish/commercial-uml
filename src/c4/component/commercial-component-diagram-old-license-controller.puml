@@ -1,0 +1,32 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Managing Activities Related To old Commercial License - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves old commercial licence , vehicle commercial license  , activities related to old commercial license, general api for getting municipalities.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "OldLicenseController", "Spring Rest Controller", "Allows users to manage activities related to old commercial licenses for their shops and vehicles and general functionality like getting license data , get municipalities")
+    Component(oldLicenseBaseService, "OldLicenseBaseService", "Spring Service Bean", "Perform some basic functionality like  retrieving balady municipalities, client info, license data.")
+    Component(comOldLicenseService, "ComOldLicenseService", "Spring Service Bean", "Perform business related to old commercial license like getting activity info , getting shop details , submitting old commercial license  and validating attachment.")
+    Component(vehicleOldLicenseService, "VehicleOldLicenseService", "Spring Service Bean", "Perform business related to getting vehicle details , like submitting a request, saving vehicle location.")
+
+
+
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+
+Rel(controller, oldLicenseBaseService, "Uses", "JSON/HTTP")
+Rel(controller, comOldLicenseService, "Uses", "JSON/HTTP")
+Rel(controller, vehicleOldLicenseService, "Uses", "JSON/HTTP")
+
+    Rel(oldLicenseBaseService, db, "Read & write to", "JDBC")
+    Rel(comOldLicenseService, db, "Read & write to", "JDBC")
+    Rel(vehicleOldLicenseService, db, "Read & write to", "JDBC")
+@enduml

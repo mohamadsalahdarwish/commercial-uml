@@ -1,0 +1,22 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for loading attachment for credence request approval - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "TransportPermitController", "Spring Rest Controller", "Expose Apis to loading attachment for credence request approval.")
+    Component(attachmentService, "AttachmentService", "Spring Service Bean", "Exposes api for loading attachment for credence request approval.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(controller, attachmentService, "Uses", "JSON/HTTP")
+
+
+
+@enduml

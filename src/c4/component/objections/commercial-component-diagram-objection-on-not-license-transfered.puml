@@ -1,0 +1,22 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for creating and retrieving objection on not transferred commercial license - API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Retrieve/Store objection on not transferred commercial license.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "ObjectionLicenseNotTransferedController", "Spring Rest Controller", "Expose Apis to manage the objection on not transferred commercial license.")
+    Component(objectionLicenseNotTransferredService, "ObjectionLicenseNotTransferedService", "Spring Service Bean", "Manage the logic of objection on not transferred commercial license.")
+}
+
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+Rel(objectionLicenseNotTransferredService, db, "Uses", "TCP/IP")
+Rel(controller, objectionLicenseNotTransferredService, "Uses", "JSON/HTTP")
+
+@enduml

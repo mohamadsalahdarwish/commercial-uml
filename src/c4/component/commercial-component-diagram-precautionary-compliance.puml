@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for managing all the violation that violate the precausionary compliance  done by individulas- API Application
+
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+ContainerDb(db, " Database", "Relational Database Schema",  "Store and retrieves all the violation that violate the precausionary compliance for an individual.")
+
+Container_Boundary(api, "Commercial License API") {
+    Component(controller, "PrecautionaryComplianceController", "Spring Rest Controller", "Allows users To retrieves all the violation that violate the precausionary compliance for an individual")
+    Component(precautionaryComplianceService, "PrecautionaryComplianceService","Spring Service Bean", "Perform the logic for retrieving all the violation that violate the precausionary compliance for an individual.")
+}
+Rel(mvc, controller, "Uses", "JSON/HTTP")
+
+Rel(controller, precautionaryComplianceService, "Uses", "JSON/HTTP")
+
+Rel(precautionaryComplianceService, db, "Uses", "TCP/IP")
+
+
+
+@enduml
