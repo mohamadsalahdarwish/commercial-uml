@@ -23,6 +23,10 @@ Container_Ext(apigee, "Apigee", "Java Spring", "Google Cloud’s native API mana
 Container_Ext(externalServices, "External Services", "External Services Provided By External Parties Like Ministry Of Justice")
 SystemQueue_Ext(messageBus, "Message Bus", " A message Broker that Enables Async Communication. ", "rabbitmq")
 
+Container_Ext(logStash, "LogStash", "A consumer that analyzer and tokenizer different product messages and store it at elastic search.")
+
+Container_Ext(elasticSearch, "ElasticSearch", "A data store that holds the searchable data for different inboxes.")
+
 
 Rel(Beneficiary, mvc, "Uses", "HTTP")
 Rel(mvc, api, "Calls", "HTTP")
@@ -37,7 +41,11 @@ Rel(commonService, internalServices, "Calls", "HTTP")
 
 Rel(apigee, externalServices, "Calls", "HTTP")
 
-Rel(api, messageBus, "Calls", "amqp")
+Rel(api, messageBus, "Sends messages to ", "amqp")
+
+Rel(logStash, messageBus, "Reads", "amqp")
+
+Rel(logStash, elasticSearch, "Write", "http")
 
 
 @enduml
