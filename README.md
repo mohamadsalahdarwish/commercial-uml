@@ -100,55 +100,160 @@ activities and the below diagram shows the full picture of the containers and ho
 The container diagram shows the components that make the commercial API container, which is the core service for generating commercial licenses.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-activity.puml)
+#####  This diagram shows Component diagram for Managing Activities Related To Commercial License.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-approval.puml)
+##### This diagram shows Component diagram for Managing General Security Approvals Related To Commercial License Request.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-automate-expire-cancel.puml)
+##### This diagram shows Component diagram for managing commercial license request for automated expired license cancellation.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-back-office.puml)
+##### This diagram shows Component diagram for Managing backoffice operation. 
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-board.puml)
+##### This diagram shows Component diagram for managing owner contract for board purchased by etmam.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-business-rules.puml)
+##### This diagram shows Component diagram for managing the business rules for extracting a commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-calculator.puml)
+##### This diagram shows Component diagram for managing fees calculation for the Commercial License.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-common.puml)
+##### This diagram shows Component diagram for applying common functionality like commercial license for housing , retrieving investment in municipalities.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-correct.puml)
+##### This diagram shows Component diagram for correcting commercial request data.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-craft.puml)
+##### This diagram shows Component diagram for Managing craft integration Related To Commercial License.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-credence-request.puml)
+##### This diagram shows Component diagram for loading attachment for credence request approval.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-efada.puml)
+##### This diagram shows Component diagram for managing request of type efada( medical certificate for Riyad).
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-grouped-request-renewal.puml)
+##### This diagram shows Component diagram for managing license renewal for a group of owners.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-integration.puml)
+##### This diagram shows Component diagram for integration with governmental sectors to get data for commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-license.puml)
+##### This diagram shows Component diagram for managing license , group of owners license, engineering office observation.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-license-rating.puml)
+##### This diagram shows Component diagram for  Managing License Rating.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-lookup.puml)
+##### This diagram shows Component diagram for retrieving lookups for board types, worker types, accommodations types , salalma approved center list , cities, malls , districts,credences , vehicle types , self machine types.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-migration.puml)
+##### This diagram shows Component diagram for migrating commercial license to another municipality.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-mobile-cancel.puml)
+##### This diagram shows Component diagram for managing cancellation of commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-modify-request.puml)
+##### This diagram shows Component diagram for managing modifying commercial license request
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-momathel.puml)
+##### This diagram shows Component diagram for managing commercial license related to momathil.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-new-request.puml)
+##### This diagram shows Component diagram for managing new commercial license request.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-nic.puml)
+##### This diagram shows Component diagram for sending notification after bill cancellation.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-old-license-controller.puml)
+##### This diagram shows Component diagram for managing Activities Related To old Commercial License.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-precautionary-compliance.puml)
+##### This diagram shows Component diagram for managing all the violation that violate the precausionary compliance  done by individulas.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-provider-observation.puml)
+##### This diagram shows Component diagram for managing all the observation of the engineering offices and all of its lifecycle for approval of commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-qr-code.puml)
+##### This diagram shows Component diagram for managing qr codes for scanning to get more information about the shop.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-renew.puml)
+##### This diagram shows Component diagram for renewing commercial license including vehicle license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-repeated.puml)
+##### This diagram shows Component diagram for retrieving licenses and delete repeated ones.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-request.puml)
+##### This diagram shows Component diagram for managing all the commercial requests.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-saudi-business-center.puml)
+##### This diagram shows Component diagram for exposing all the saudi business center data  like license activities , immediate activities, fees,license issuing, commercial license status,data, mall lists , clean electronic contracts,pest and furniture, homogenous activities.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-self-service.puml)
+##### This diagram shows Component diagram for managing self machine, self machines types and retrieving machine usage.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-vehicle.puml)
+##### This diagram shows Component diagram for managing all vehicle paths for municipality or district.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection.puml)
+##### This diagram shows Component diagram for  creating and retrieving objection on a commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-expired.puml)
+##### This diagram shows Component diagram for creating and retrieving permitted commercial types for expired objection.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-on-bill-fee.puml)
+##### This diagram shows Component diagram for creating and retrieving objection on  commercial license bill fees.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-on-hold.puml)
+##### This diagram shows Component diagram for creating and retrieving objection on a Suspended commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-on-not-belong.puml)
+##### This diagram shows Component diagram for creating and retrieving objection on not belonging commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-on-not-license-transfered.puml)
+##### This diagram shows Component diagram for creating and retrieving objection on not transferred commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/objections/commercial-component-diagram-objection-revoked.puml)
+##### This diagram shows Component diagram for creating and retrieving objection on a cancelled commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-24-permit.puml)
+##### This diagram shows Component diagram for granting and validating a 24 hours permits on a license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-hosue-hold-permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to household.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-non-food-permit.puml)
+##### This diagram shows Component diagram for granting and validating a nonfood vehicle permits on a license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-permit.puml)
+##### This diagram shows Component diagram for managing Activities Permits Related To Commercial License.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-royal-gaurd_permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to royal gaurd type.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-seasonal_permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to seasonal type  for commercial license request.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-self-service-permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to self-service machine.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-side-walk-permit.puml)
+##### This diagram shows Component diagram for granting and validating a sidewalk permits type  on a commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-slaughter-permit.puml)
+##### This diagram shows Component diagram for granting  slaughter permits on a commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-tobaco-permit.puml)
+##### This diagram shows Component diagram for managing License Permits ,Cancelling Permits and Activities Permits Related To Commercial License For Tobacco.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-transfer_permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to transfer of commercial license.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-transport_permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to Transport.
+
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-vheicle-parking_permit.puml)
+##### This diagram shows Component diagram for granting and validating permits related to vehicle parking type.~~~~
