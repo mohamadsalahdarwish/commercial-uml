@@ -261,4 +261,4 @@ The container diagram shows the components that make the commercial API containe
 ##### This diagram shows Component diagram for granting and validating permits related to Transport.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/permits/commercial-component-diagram-vheicle-parking_permit.puml)
-##### This diagram shows Component diagram for granting and validating permits related to vehicle parking type.~~~~
+##### This diagram shows Component diagram for granting and validating permits related to vehicle parking type.
