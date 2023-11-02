@@ -17,7 +17,6 @@ Container(api, "Commercial Licence Api", "Java Spring", "Grant Commercial Licens
 Container_Ext(integrationLayer, "Integration Layer", "IntegrationLayer(Apigee)", "A Service that Managing high value/volume of APIs with enterprise-grade security and dev engagement.")
 Container_Ext(gisService, "GIS Service", "C# , ASP", "A Service that  Get Gis Location details By Coordinates and Information About Zones",$sprite="java")
 Container_Ext(commercialParkingZone, "Commercial Parking Zone", "C#, ASP", "A Service that Handles All Tasks Related to Parking Zones For vehicles(Retrieving , Validation)")
-Container_Ext(sso, "SSO", "C#, ASP", "A Single sign-on System that handles authentication and authorization")
 Container_Ext(etmamintg, "Etmam Intg", "Java", "A Service that Validate and Aquire Orders For Balady Service And Get Order Details.",$sprite="java")
 Container_Ext(selfSurveyApi, "Self Survey Api", "C#, ASP", "A Service that Get More Information About the License Rating.")
 
@@ -26,7 +25,6 @@ Rel(mvc, api, "Calls", "HTTP")
 Rel(api, integrationLayer, "Calls", "HTTP")
 Rel(api, gisService, "Calls", "HTTP")
 Rel(api, commercialParkingZone, "Calls", "HTTP")
-Rel(api, sso, "Calls", "HTTP")
 Rel(api, etmamintg, "Calls", "HTTP")
 Rel(api, selfSurveyApi, "Calls", "HTTP")
 

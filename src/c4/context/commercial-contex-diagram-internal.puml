@@ -30,7 +30,7 @@ Container_Ext(elasticSearch, "ElasticSearch", "A data store that holds the searc
 
 SystemQueue_Ext(messageBus, "Message Bus", " A message Broker that Enables Async Communication. ", "rabbitmq")
 
-Rel(Beneficiary, mvc, "Uses", "HTTP")
+Rel(baladyEmployee, mvc, "Uses", "HTTP")
 
 Rel(mvc, api, "Calls", "HTTP")
 

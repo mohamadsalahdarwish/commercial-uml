@@ -13,13 +13,21 @@ This system helps beneficiaries issue or renew commercial licenses. It also prov
 
 ### The diagram shows that: 
 -	The Beneficiary is the main actor who uses the commercial license API via the web browser.
--	The web portal that calls the commercial license Api via http requests for serving the functionality for acquiring a license for business.
+-	The web portal that calls the commercial license Api requests for serving the functionality for acquiring a license for business.
+-	The commercial license Api uses the common module as auxiliary service for integrating with several internal (Balady services) and external functionality to get several functionalities.
+-	The commercial license Api uses internal services (reusable components) to provide auxiliary functionality.
+
+![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram-internal.puml)
+
+### The diagram shows that:
+-	Balady employee is the main actor who uses the commercial license API via the web browser(internal portal) to manage the approvals.
+-	The web portal that calls the commercial license Api requests for serving the functionality for managing internal approvals required for issuing commercial license.
 -	The commercial license Api uses the common module as auxiliary service for integrating with several internal (Balady services) and external functionality to get several functionalities.
 -	The commercial license Api uses internal services (reusable components) to provide auxiliary functionality.
 
 
 ## Level 2: Containers
-The container diagram shows the containers that integrate with commercial license Api for generating a commercial license for several economical
+The container diagram shows the containers that integrate with commercial license Api for generating a commercial license for several economic
 activities and the below diagram shows the full picture of the containers and how they interact with each other.
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/container/commercial-container-diagram_ALL.puml)
 
@@ -29,50 +37,47 @@ activities and the below diagram shows the full picture of the containers and ho
 
 #### This diagram shows that:
 - The user accesses MVC application that provides a single page application user interface for generating commercial license.
-- The MVC page uses http to call commercial license Api (CLA) service for providing the functionality of generating the commercial license.
-- The CLA calls via http Balady App Calculator service to calculate the cost for generating the fees cost based on the provided action like
+- The MVC page calls commercial license Api service for providing the functionality of generating the commercial license.
+- The commercial license Api calls Balady App Calculator service to calculate the cost for generating the fees cost based on the provided action like
   generating commercial licenses, commercial license correction fees, vehicle route calculator.
-- The CLA calls board contract service via http to retrieve board contract owned by beneficiary and it integrates with board contract
+- The commercial license Api calls board contract service to retrieve board contract owned by beneficiary and it integrates with board contract
   configuration for any configuration related to the board like zone settings for board.
-- The CLA calls commercial QR service via http to grant or validate or cancel QR code which is used to get all the business details like shop size,
+- The commercial license Api calls commercial Quick Response  service to grant or validate or cancel Quick Response code which is used to get all the business details like shop size,
   number of windows, etc.
-- The CLA calls Commercial Issuing Consultation service via http to simulate the same procedure to produce a license without any fees to have
+- The commercial license Api calls Commercial Issuing Consultation service to simulate the same procedure to produce a license without any fees to have
   an understanding about limitation.
-- The CLA calls Craft service via http for granting craft license and validate crafts for commercial license.
-- The CLA calls Engineering Office Api via http to get the business partner engineering office for Beneficiary granting commercial license.
+- The commercial license Api calls Craft service for granting craft license and validate crafts permits for commercial license.
+- The commercial license Api calls Engineering Office Api to get the business partner engineering office for Beneficiary granting commercial license.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/container/commercial-container-diagram_2.puml)
 
 #### This diagram shows that: -
 - The user accesses MVC page that provides a single page application user interface for generating commercial license.
-- The MVC page uses http to call commercial license Api (CLA) service for providing the functionality of generating the commercial license.
-- The CLA calls GIS service via http to get GIS location details by coordinates and information about zones.
-- The CLA calls Commercial parking zone service via http to handles all tasks related to parking zones for vehicles like retrieval, validation, etc.
-- The CLA calls SSO service via http to get Single sign-on functionality that handles authentication and authorization.
-- The CLA calls Etmam Intg service via http to validate and acquire orders for balady service and get Order Details.
-- The CLA calls Self Survey Api service via http to get more information about the license rating.
+- The MVC page uses http to call commercial license Api  service for providing the functionality of generating the commercial license.
+- The commercial license Api calls GIS service to get GIS location details by coordinates and information about zones and this is done through a geo-reference, as the service depends on a locator to determine the coordinate for the issuing part.
+- The commercial license Api calls Commercial parking zone service  to handle all tasks related to parking zones permits for commercial license of vehicles.
+- The commercial license Api calls Etmam Intg service to validate and acquire orders for balady service and get Order Details.
+- The commercial license Api calls Self Survey Api service  to get more information about the license rating.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/container/commercial-container-diagram_3.puml)
 
 #### The diagram shows that: -
+- The commercial license Api calls Activity Management Api to manage the activities related to granting commercial license (validate activities related to
+  Salama report and meeting civil defense rules) , get all details related to activity like filtering by isic number, vehicle detailed activities, etc.
+- The commercial license Api calls Blocked Clients Api service to validate If the client is blocked in the municipality for the provided service.
 - The user accesses MVC page that provides a single page application user interface for generating commercial license.
-- The MVC page uses http to call commercial license Api (CLA) service for providing the functionality of generating the commercial license.
-- The CLA calls Health Certificate Service via http to check if the beneficiary has a health certificate.
--
-- The CLA calls Blocked Clients Api service via http to validate If the client is blocked in the municipality for the provided service.
-- The CLA calls Balady Services API service via http to validate and retrieve commercial records for commissioner.
-- The CLA calls Activity Management Api via http to manage the activities related to granting commercial license (validate activities related to
-  Salama report and meeting civil defense rules).
-- The CLA calls Governmental Service Bus (GSB) service that is accessed via http centralized access called Apigee which is a service that Managing
+- The MVC page uses http to call commercial license Api  service for providing the functionality of generating the commercial license.
+- The commercial license Api calls Health Certificate Service to check if the beneficiary has a health certificate.
+- The commercial license Api calls Governmental Service Bus (GSB) service that is accessed  centralized access called Apigee which is a service that Managing
   high value/volume of APIs with enterprise-grade security and dev engagement and it’s mainly about integrating with governmental parties.
-- The CLA calls General Security service via http to get approvals related to general security.
+- The commercial license Api calls General Security service(salama) to get approvals related to general security.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/container/commercial-container-diagram_common.puml)
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/container/commercial-container-diagram_integration.puml)
 
 **This diagrams shows that:**
- - The CLA uses the common Api container for generating common functionality as an auxiliary function. 
- - The CLA integrate with several governmental institution via http even by using common service or directly by itself. 
+ - The commercial license Api uses the common Api container for utilizing common functionality as an auxiliary function. 
+ - The commercial license Api integrate with several governmental institution even by using common service or directly by itself. 
  - Ministry of Municipal and Rural Affairs and Housing
     - A Service that gets information about Ejar Contracts and their Status. 
  - Ministry Of Commerce
@@ -178,7 +183,7 @@ The container diagram shows the components that make the commercial API containe
 ##### This diagram shows Component diagram for managing all the observation of the engineering offices and all of its lifecycle for approval of commercial license.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-qr-code.puml)
-##### This diagram shows Component diagram for managing qr codes for scanning to get more information about the shop.
+##### This diagram shows Component diagram for managing Quick Response codes for scanning to get more information about the shop.
 
 ![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/component/commercial-component-diagram-renew.puml)
 ##### This diagram shows Component diagram for renewing commercial license including vehicle license.
