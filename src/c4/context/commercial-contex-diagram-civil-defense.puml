@@ -1,0 +1,30 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+AddBoundaryTag("solidLine",$borderStyle=SolidLine)
+Person(civilDefenseEmployee, "Civil Defense Employee")
+System_Boundary(c1, "Balady Internal Portal", $tags="solidLine") {
+Container(api, "CommercialLicenceApi", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+}
+
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves commercial license request status.")
+
+
+
+  Rel(api, db, "Read & write to", "JDBC")
+
+
+ Rel(api, db, "Read & write to", "JDBC")
+
+Rel(civilDefenseEmployee, api, "Uses", "HTTP")
+
+
+
+
+@enduml

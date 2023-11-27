@@ -1,0 +1,45 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+
+AddBoundaryTag("solidLine",$borderStyle=SolidLine)
+Person(baladyEmployee, "Balady Employee")
+Person(Beneficiary, "Beneficiary")
+System_Boundary(c1, "Balady Internal Portal", $tags="solidLine") {
+Container(mvc, "MVC", "C#, ASP", "A web application that provides user interface for the service provider.")
+Container(api, "CommercialLicenceApi", "Java Spring", "Grant Commercial License For Business", $sprite="java")
+Container(oracleADF, "Oracle ADF", "Java EE", "Provides application forms to walk through the Balady employee approval process.")
+}
+
+
+Container_Ext(sso, "SSO", ".NET", "A single sign on system that handles authentication and authorization.")
+
+Container_Ext(policyServer, "Policy Server", ".NET", "A policy evaluation service that checks the employee's role to map it to the correct actions.")
+
+ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves commercial license request status.")
+
+ Rel(Beneficiary, mvc, "Uses", "HTTP")
+ Rel(mvc, api, "Uses", "HTTP")
+
+
+ Rel(oracleADF, db, "Read & write to", "JDBC")
+
+  Rel(api, db, "Read & write to", "JDBC")
+
+
+
+Rel(baladyEmployee, oracleADF, "Uses", "HTTP")
+
+
+
+Rel(oracleADF, sso, "Calls", "HTTP")
+
+Rel(oracleADF, policyServer, "Calls", "HTTP")
+
+
+@enduml

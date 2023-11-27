@@ -17,6 +17,7 @@ Container(internalServices, "InternalServices", "Internal Balady Service", "Inte
 
 }
 
+ContainerDb(aspDB, "State Persistence DB", "Relational Database Schema",  "Stores/Retrieves current status related to the UI workflow.")
 
 Container_Ext(apigee, "Apigee", "Java Spring", "Google Cloud’s native API management tool to build, manage, and secure APIs—for any use case, environment, or scale.")
 
@@ -30,6 +31,7 @@ Container_Ext(elasticSearch, "ElasticSearch", "A data store that holds the searc
 
 Rel(Beneficiary, mvc, "Uses", "HTTP")
 Rel(mvc, api, "Calls", "HTTP")
+Rel(mvc, aspDB, "Calls", "HTTP")
 
 Rel(api, commonService, "Calls", "HTTP")
 
