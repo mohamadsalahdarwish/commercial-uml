@@ -1,6 +1,9 @@
 # Commercial License Issue Design Document
 This Document lays out the design and necessary touch points that represent the current architecture for commercial license issuing.
 
+## Swimlane Diagram
+![commercial_license_issuing.png](src%2Fc4%2Fswimlane%2Fcommercial_license_issuing.png)
+
 ## C4model
 The Commercial License Issuing is an electronic service that is provided by Balady portal to ease the procedure of issue/renewal of a commercial license for the beneficiary for all economic Activities according to the national classification for the economic activities.
 
@@ -17,14 +20,27 @@ This system helps beneficiaries issue or renew commercial licenses. It also prov
 -	The commercial license Api uses the common module as auxiliary service for integrating with several internal (Balady services) and external functionality to get several functionalities.
 -	The commercial license Api uses internal services (reusable components) to provide auxiliary functionality.
 
-![example-uml](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram-internal.puml)
+![example-uml](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram-employee-internal.puml)
 
 ### The diagram shows that:
--	Balady employee is the main actor who uses the commercial license API via the web browser(internal portal) to manage the approvals.
--	The web portal that calls the commercial license Api requests for serving the functionality for managing internal approvals required for issuing commercial license.
--	The commercial license Api uses the common module as auxiliary service for integrating with several internal (Balady services) and external functionality to get several functionalities.
--	The commercial license Api uses internal services (reusable components) to provide auxiliary functionality.
+-	Balady employee is the main actor who uses the oracle ADF via the web browser(internal portal) to manage the employee approvals.
+-   The oracle ADF calls the policy server to evaluate the policy for employee to map it to the right action. 
+-	The oracle ADF updates the DB status based on employee action to track the employee approval process and track the next required actions then show it to the employee based on his/her role.
+-	The commercial license Api tracks the database status related to the employee approval process to get the next required action after completing the employee approval process.
 
+![example-uml](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram-governmental-internal.puml)
+
+### The diagram shows that:
+-	Governmental employee is the main actor who uses the oracle ADF via the web browser(internal portal) to manage the governmental approvals.
+-   The oracle ADF calls the policy server to evaluate the policy for governmental employee based to the governmental agency and municipality(tenant)to map it to the right action.
+-	The oracle ADF updates the DB status based on governmental employee action to track the approvals process and track the next required actions.
+-	The commercial license Api tracks the database status related to the governmental approval process to get the next required action after completing the governmental approval process.
+
+![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram-civil-defense.puml)
+
+### The diagram shows that:
+-  The commercial license Api will need civil defense approval to grant a commercial license related to some activities.
+-  In case of non-fawry commerical license civil defense will give feedback to the commercial license about the status of the current activity approval process status.
 
 ## Level 2: Containers
 The container diagram shows the containers that integrate with commercial license Api for generating a commercial license for several economic

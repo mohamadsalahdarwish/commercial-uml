@@ -15,16 +15,8 @@ Container(api, "CommercialLicenceApi", "Java Spring", "Grant Commercial License 
 
 ContainerDb(db, " Database", "Relational Database Schema",  "Stores/Retrieves commercial license request status.")
 
-
-
-  Rel(api, db, "Read & write to", "JDBC")
-
-
- Rel(api, db, "Read & write to", "JDBC")
-
+Rel(api, db, "Read & write to", "JDBC")
 Rel(civilDefenseEmployee, api, "Uses", "HTTP")
-
-
-
+Rel(api, civilDefenseEmployee, "Uses", "HTTP")
 
 @enduml
