@@ -17,7 +17,7 @@ Container(internalServices, "InternalServices", "Internal Balady Service", "Inte
 
 }
 
-ContainerDb(aspDB, "State Persistence DB", "Relational Database Schema",  "Stores/Retrieves current status related to the UI workflow.")
+ContainerDb(aspDB, "Session Persistence DB", "Relational Database Schema",  "Stores/Retrieves current Session related to the UI workflow.")
 
 Container_Ext(apigee, "Apigee", "Java Spring", "Google Cloud’s native API management tool to build, manage, and secure APIs—for any use case, environment, or scale.")
 
