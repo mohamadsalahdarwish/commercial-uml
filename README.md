@@ -12,7 +12,7 @@ Apigee is used to integrate the Service with several external services, such as 
 ## Level 1: System Context
 The diagram shows the commercial license API as a box in the center, surrounded by its user (Beneficiary) and the other systems (internal, external components) that interact with it.
 This system helps beneficiaries issue or renew commercial licenses. It also provides a set of user interfaces for internal Baladi employees to complete the necessary approvals for granting commercial licenses.                                                                 
-![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram.puml)
+![example-uml](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/mohamadsalahdarwish/commercial-uml/main/src/c4/context/commercial-contex-diagram.puml)
 
 ### The diagram shows that: 
 -	The Beneficiary is the main actor who uses the commercial license API via the web browser.
